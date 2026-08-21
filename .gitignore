@@ -22,15 +22,6 @@ Thumbs.db
 .swiftpm/
 Package.resolved
 
-# ── CocoaPods (not used, but just in case) ───────────────────────────────────
-Pods/
-Podfile.lock
-
-# ── Fastlane ─────────────────────────────────────────────────────────────────
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
 
 # ── Environment / secrets ────────────────────────────────────────────────────
 .env

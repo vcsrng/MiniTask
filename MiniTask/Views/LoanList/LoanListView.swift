@@ -91,7 +91,7 @@ struct LoanListView: View {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
                 StatCard(
                     title: "Total Loans",
-                    value: "\(viewModel.displayedLoans.count)",
+                    value: "\(viewModel.loans.count)",
                     systemImage: "doc.plaintext.fill",
                     accentColor: .blue
                 )
