@@ -91,7 +91,7 @@ struct LoanListView: View {
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
                 StatCard(
                     title: "Total Loans",
-                    value: "\(viewModel.loans.count)",
+                    value: "\(viewModel.displayedLoans.count)",
                     systemImage: "doc.plaintext.fill",
                     accentColor: .blue
                 )
@@ -108,7 +108,7 @@ struct LoanListView: View {
                     accentColor: .purple
                 )
                 StatCard(
-                    title: "Risk A / B / C",
+                    title: riskDistributionTitle,
                     value: riskDistributionText,
                     systemImage: "shield.lefthalf.filled",
                     accentColor: .orange
@@ -136,17 +136,17 @@ struct LoanListView: View {
 
     private var sortAndFilterMenu: some View {
         Menu {
-            Section("Sort By") {
-                Picker("Sort", selection: $viewModel.sortOption) {
-                    ForEach(SortOption.allCases) { option in
-                        Label(option.rawValue, systemImage: option.systemImage).tag(option)
-                    }
-                }
-            }
             Section("Filter by Risk") {
                 Picker("Risk Rating", selection: $viewModel.riskFilter) {
                     ForEach(viewModel.availableRiskRatings, id: \.self) { rating in
                         Text(rating).tag(rating)
+                    }
+                }
+            }
+            Section("Sort By") {
+                Picker("Sort", selection: $viewModel.sortOption) {
+                    ForEach(SortOption.allCases) { option in
+                        Label(option.rawValue, systemImage: option.systemImage).tag(option)
                     }
                 }
             }
@@ -157,20 +157,27 @@ struct LoanListView: View {
 
 
     private var portfolioValueText: String {
-        let total = viewModel.loans.reduce(0) { $0 + $1.amount }
+        let total = viewModel.displayedLoans.reduce(0) { $0 + $1.amount }
         return total.formatted(.currency(code: AppConfig.currencyCode).precision(.fractionLength(0)))
     }
 
     private var avgInterestRateText: String {
-        guard !viewModel.loans.isEmpty else { return "—" }
-        let avg = viewModel.loans.map(\.interestRate).reduce(0, +) / Double(viewModel.loans.count)
+        guard !viewModel.displayedLoans.isEmpty else { return "—" }
+        let avg = viewModel.displayedLoans.map(\.interestRate).reduce(0, +) / Double(viewModel.displayedLoans.count)
         return "\(avg.formatted(.number.precision(.fractionLength(1))))%"
     }
 
+    private var riskDistributionTitle: String {
+        viewModel.riskFilter == "All" ? "Risk A / B / C" : "Risk \(viewModel.riskFilter)"
+    }
+
     private var riskDistributionText: String {
-        let a = viewModel.loans.filter { $0.riskRating.uppercased() == "A" }.count
-        let b = viewModel.loans.filter { $0.riskRating.uppercased() == "B" }.count
-        let c = viewModel.loans.filter { $0.riskRating.uppercased() == "C" }.count
+        if viewModel.riskFilter != "All" {
+            return "\(viewModel.displayedLoans.count)"
+        }
+        let a = viewModel.displayedLoans.filter { $0.riskRating.uppercased() == "A" }.count
+        let b = viewModel.displayedLoans.filter { $0.riskRating.uppercased() == "B" }.count
+        let c = viewModel.displayedLoans.filter { $0.riskRating.uppercased() == "C" }.count
         return "\(a) / \(b) / \(c)"
     }
 }

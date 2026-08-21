@@ -42,6 +42,22 @@ final class MiniTaskUITests: XCTestCase {
         XCTAssertTrue(sortButton.waitForExistence(timeout: 3))
     }
 
+    // Filtering by Risk Rating works
+    @MainActor
+    func testRiskRatingFilter() throws {
+        XCTAssertTrue(app.navigationBars["Loans"].waitForExistence(timeout: 5))
+        let sortButton = app.buttons["Sort & Filter"]
+        XCTAssertTrue(sortButton.waitForExistence(timeout: 3))
+        sortButton.tap()
+        
+        let filterOption = app.buttons["A"]
+        XCTAssertTrue(filterOption.waitForExistence(timeout: 3))
+        filterOption.tap()
+        
+        let firstCell = app.scrollViews.firstMatch.buttons.firstMatch
+        XCTAssertTrue(firstCell.waitForExistence(timeout: 8))
+    }
+
     // Search bar activates when tapped
     @MainActor
     func testSearchBarActivates() throws {
@@ -58,7 +74,7 @@ final class MiniTaskUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["Loans"].waitForExistence(timeout: 5))
 
         // Wait for at least one loan card to appear
-        let firstCell = app.buttons.firstMatch
+        let firstCell = app.scrollViews.firstMatch.buttons.firstMatch
         XCTAssertTrue(firstCell.waitForExistence(timeout: 8))
         firstCell.tap()
 
@@ -71,7 +87,7 @@ final class MiniTaskUITests: XCTestCase {
     func testDetailShowsDocumentsRow() throws {
         XCTAssertTrue(app.navigationBars["Loans"].waitForExistence(timeout: 5))
 
-        let firstCell = app.buttons.firstMatch
+        let firstCell = app.scrollViews.firstMatch.buttons.firstMatch
         XCTAssertTrue(firstCell.waitForExistence(timeout: 8))
         firstCell.tap()
 
@@ -83,7 +99,7 @@ final class MiniTaskUITests: XCTestCase {
     func testDocumentsScreenOpens() throws {
         XCTAssertTrue(app.navigationBars["Loans"].waitForExistence(timeout: 5))
 
-        let firstCell = app.buttons.firstMatch
+        let firstCell = app.scrollViews.firstMatch.buttons.firstMatch
         XCTAssertTrue(firstCell.waitForExistence(timeout: 8))
         firstCell.tap()
 
@@ -99,7 +115,7 @@ final class MiniTaskUITests: XCTestCase {
     func testBackNavigationReturnsToList() throws {
         XCTAssertTrue(app.navigationBars["Loans"].waitForExistence(timeout: 5))
 
-        let firstCell = app.buttons.firstMatch
+        let firstCell = app.scrollViews.firstMatch.buttons.firstMatch
         XCTAssertTrue(firstCell.waitForExistence(timeout: 8))
         firstCell.tap()
 
