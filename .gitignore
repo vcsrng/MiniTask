@@ -1,0 +1,39 @@
+# ── Xcode generated files ──────────────────────────────────────────────────
+# The .xcodeproj can be regenerated from project.yml via `xcodegen generate`
+MiniTask.xcodeproj/
+xcuserdata/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+
+# ── Build output ────────────────────────────────────────────────────────────
+DerivedData/
+build/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# ── macOS system files ───────────────────────────────────────────────────────
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+# ── Swift Package Manager ────────────────────────────────────────────────────
+.build/
+.swiftpm/
+Package.resolved
+
+# ── CocoaPods (not used, but just in case) ───────────────────────────────────
+Pods/
+Podfile.lock
+
+# ── Fastlane ─────────────────────────────────────────────────────────────────
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# ── Environment / secrets ────────────────────────────────────────────────────
+.env
+*.p8
+*.p12
+*.mobileprovision
