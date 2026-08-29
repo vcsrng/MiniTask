@@ -1,4 +1,4 @@
-# MiniTask — P2P Loan Viewer
+# SimpleProjectSwiftUI — P2P Loan Viewer
 
 An iOS app to view and manage P2P loan data, built with **Swift + SwiftUI** using **MVVM**.
 
@@ -13,8 +13,8 @@ An iOS app to view and manage P2P loan data, built with **Swift + SwiftUI** usin
 ## Running the App
 
 ```bash
-git clone <repo-url>
-cd MiniTask
+git clone https://github.com/vcsrng/SimpleProjectSwiftUI.git
+cd SimpleProjectSwiftUI
 
 # Option A — open directly
 open MiniTask.xcodeproj
